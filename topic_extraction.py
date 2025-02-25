@@ -1,15 +1,35 @@
-import spacy.cli
+import sys
+import os
+import spacy  # type: ignore
+import asyncio
 from collections import defaultdict
 
+# Ensure the module path is accessible
+sys.path.append('/mount/src/customer_emotion_analysis')
 
-#nlp = spacy.load("en_core_web_sm")
+# Try importing the function
+try:
+    from topic_extraction import extract_topics_and_subtopics
+except ImportError:
+    print("Error: Could not import 'extract_topics_and_subtopics' from 'topic_extraction.py'.")
+    print("Check if 'topic_extraction.py' exists and contains the function.")
+    sys.exit(1)
+
+# Fix Streamlit's asyncio issue
+try:
+    asyncio.get_running_loop()
+except RuntimeError:
+    asyncio.set_event_loop(asyncio.new_event_loop())
+
+# Try loading the Spacy model with error handling
 try:
     nlp = spacy.load("en_core_web_sm")
 except OSError:
-    import spacy.cli
-    spacy.cli.download("en_core_web_sm")
+    print("Spacy model 'en_core_web_sm' not found. Attempting to download...")
+    os.system("python3 -m spacy download en_core_web_sm --user")
     nlp = spacy.load("en_core_web_sm")
 
+# Stopwords for filtering
 stopwords = {"although", "since", "however", "but", "though", "yet", "nevertheless", "nonetheless", "also"}
 
 def extract_topics_and_subtopics(feedback_text):
@@ -86,11 +106,7 @@ def extract_topics_and_subtopics(feedback_text):
         }
     }
 
-'''# Ask for a single feedback input
-feedback_text = input("\nEnter your feedback: ")'''
-
-# Process the feedback
-result = extract_topics_and_subtopics(feedback_text)
-
-# Display the result
-'''print("\nExtracted Topics and Subtopics:", result)'''
+# Uncomment for testing:
+# feedback_text = input("\nEnter your feedback: ")
+# result = extract_topics_and_subtopics(feedback_text)
+# print("\nExtracted Topics and Subtopics:", result)
