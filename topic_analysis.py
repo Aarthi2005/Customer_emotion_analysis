@@ -2,8 +2,13 @@ import spacy # type: ignore
 from collections import defaultdict
 
 
-nlp = spacy.load("en_core_web_sm")
-
+#nlp = spacy.load("en_core_web_sm")
+try:
+    nlp = spacy.load("en_core_web_sm")
+except OSError:
+    import spacy.cli
+    spacy.cli.download("en_core_web_sm")
+    nlp = spacy.load("en_core_web_sm")
 
 stopwords = {"although", "since", "however", "but", "though", "yet", "nevertheless", "nonetheless", "also"}
 
