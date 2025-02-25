@@ -2,7 +2,7 @@ import streamlit as st  # Streamlit for UI
 import base64  # For encoding image
 
 from Emotion_detection_analysis import detect_emotions  # Import emotion analysis function
-from topic_analysis import extract_topics_and_subtopics  # Import topic analysis function
+from topic_extraction import extract_topics_and_subtopics  # Import topic analysis function
 from scoring import calculate_adorescore  # Import Adorescore calculation
 
 # Function to set background image using Base64
