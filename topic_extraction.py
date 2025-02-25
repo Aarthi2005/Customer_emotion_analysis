@@ -87,10 +87,10 @@ def extract_topics_and_subtopics(feedback_text):
     }
 
 '''# Ask for a single feedback input
-feedback_text = input("\nEnter your feedback: ")
+feedback_text = input("\nEnter your feedback: ")'''
 
 # Process the feedback
 result = extract_topics_and_subtopics(feedback_text)
 
 # Display the result
-print("\nExtracted Topics and Subtopics:", result)'''
+'''print("\nExtracted Topics and Subtopics:", result)'''
