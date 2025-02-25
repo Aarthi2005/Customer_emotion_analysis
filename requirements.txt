@@ -1,11 +1,8 @@
-pip==25.0.1
-spacy==3.5.0
 streamlit
-pandas
+spacy
 numpy
-nltk
-transformers
-torch
+pandas
 scikit-learn
-
-
+torch
+transformers
+sentence-transformers
