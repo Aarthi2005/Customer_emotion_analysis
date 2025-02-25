@@ -1,10 +1,13 @@
-import spacy # type: ignore
+import spacy  # type: ignore
 from collections import defaultdict
 
-nlp = spacy.load("en_core_web_sm")
-
-
-
+# Try loading the model, and handle the case where it is missing
+try:
+    nlp = spacy.load("en_core_web_sm")
+except OSError:
+    print("Error: spaCy model 'en_core_web_sm' not found. Please install it using:")
+    print("   python -m spacy download en_core_web_sm")
+    exit(1)
 
 stopwords = {"although", "since", "however", "but", "though", "yet", "nevertheless", "nonetheless", "also"}
 
@@ -63,6 +66,7 @@ def extract_topics_and_subtopics(feedback_text):
                     main_topics.add(subject)
 
     # Step 5: Detect "X of Y" relationships (e.g., "quality of clothes")
+    to_remove = set()
     for token in doc:
         if token.dep_ == "pobj" and token.head.dep_ == "prep" and token.head.text.lower() == "of":
             noun_before = token.head.head.text  # The noun before "of" (e.g., "quality")
@@ -72,8 +76,11 @@ def extract_topics_and_subtopics(feedback_text):
             mapped_after = noun_mapping.get(noun_after.lower(), noun_after)
 
             if mapped_before in main_topics and mapped_after in main_topics:
-                main_topics.remove(mapped_before)  # Remove as a main topic
+                to_remove.add(mapped_before)  # Collect items to remove later
                 subtopics[mapped_after].append(mapped_before)  # Add as a subtopic
+
+    # Remove items after iteration
+    main_topics -= to_remove
 
     return {
         "topics": {
@@ -82,11 +89,8 @@ def extract_topics_and_subtopics(feedback_text):
         }
     }
 
-'''# Ask for a single feedback input
-feedback_text = input("\nEnter your feedback: ")
-
-# Process the feedback
-result = extract_topics_and_subtopics(feedback_text)
-
-# Display the result
-print("\nExtracted Topics and Subtopics:", result)'''
+# Test Case
+if __name__ == "__main__":
+    feedback_text = input("\nEnter your feedback: ")
+    result = extract_topics_and_subtopics(feedback_text)
+    print("\nExtracted Topics and Subtopics:", result)
