@@ -1,4 +1,4 @@
-import spacy # type: ignore
+import spacy.cli
 from collections import defaultdict
 
 
