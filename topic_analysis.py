@@ -1,15 +1,7 @@
 import spacy # type: ignore
 from collections import defaultdict
 
-#nlp = spacy.load("en_core_web_sm")
-
-# Ensure the model is installed before loading
-try:
-    nlp = spacy.load("en_core_web_sm")
-except OSError:
-    import subprocess
-    subprocess.run(["python", "-m", "spacy", "download", "en_core_web_sm"], check=True)
-    nlp = spacy.load("en_core_web_sm")
+nlp = spacy.load("en_core_web_sm")
 
 
 stopwords = {"although", "since", "however", "but", "though", "yet", "nevertheless", "nonetheless", "also"}
