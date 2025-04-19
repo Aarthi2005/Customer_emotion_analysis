@@ -1,4 +1,4 @@
-**Customer Emotion Analysis**
+# Customer Emotion Analysis
 
 The Customer Emotion Analysis System is a sentiment and topic analysis tool that extracts emotions, topics, and sentiment scores from customer feedback. This project utilizes NLP models, including RoBERTa for emotion detection, TextBlob for sentiment scoring, and spaCy for topic extraction. The system also computes an Adorescore, which reflects customer sentiment intensity based on the extracted topics and emotions.
 
@@ -14,6 +14,7 @@ The core objective is to help businesses better understand customer sentiments b
 
 # Methods & Implementation
 Tools & Libraries
+
 1.Python
 
 2.Transformers (Hugging Face 🤗)
@@ -26,9 +27,13 @@ Tools & Libraries
 
 #  Key Features
 ✅ Multi-emotion detection per feedback
+
 ✅ Confidence score (0.0 - 1.0)
+
 ✅ Activation categorization: High, Medium, Low
+
 ✅ Real-time analysis through a user-friendly web interface
+
 ✅ Easily extendable to CSV file analysis and topic detection
 
 
